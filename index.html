@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<title>Hello, world!</title>
+
+	<link href="style.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-8" id="menu">
+      <h1>Batch 5 Cafe</h1>
+      <div id="food">
+      </div>
+    </div>
+    <div class="col-4" id="list">
+      <div id="total">
+			<h2 id="total-num">$0.00</h2>
+			<p>Total</p>
+	  </div>
+	  <div id="order-list"></div>
+	  <div id="controls">
+	  	
+	  	<!-- Button trigger modal -->
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+			Check Out
+		</button>
+
+		 <button class="btn btn-danger"  onclick="location.reload();">Reset</button>
+	  </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Please Pay</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h1 id="hidden-total">$0.00</h1>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="location.reload();">Next Customer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!-- -----------------------------------------food menu -->
+<script>
+var food = [
+			{
+				name: 'food 001',
+				price: 1.23,
+				image: 'food001.jpg'
+			},
+			{
+				name: 'food 002',
+				price: 2.23,
+				image: 'food002.jpg'
+			},
+			{
+				name: 'food 003',
+				price: 3.23,
+				image: 'food003.jpg'
+			},
+			{
+				name: 'food 004',
+				price: 4.23,
+				image: 'food004.jpg'
+			},
+			{
+				name: 'food 005',
+				price: 5.23,
+				image: 'food005.jpg'
+			}
+			];
+
+var html='';
+for(var i=0; i<food.length; i++){
+	html = html+ 
+	'<div class="food-item" onclick="addFood('+i+')"><img src="images/'+food[i].image+'"><h3>'+food[i].name+'</h3><div class="food-price">$'+food[i].price+'</div></div>';
+}
+document.getElementById('food').innerHTML = html;
+
+
+function addFood(which){
+	// alert(food[which].name + food[which].price);
+
+	//add to order list
+	document.getElementById('order-list').innerHTML = document.getElementById('order-list').innerHTML + 
+	'<div class="order-item"><div class="order-name">' + food[which].name+'</div>'
+	+'<div class="order-price">$'+ food[which].price+ '</div><div class="clear"></div></div>';
+
+	//get price and add to total
+	var total = 0;
+	total = document.getElementById('total-num').innerHTML;
+	total = total.replace('$','');
+	total = parseFloat(total) + parseFloat(food[which].price);
+	total = total.toFixed(2);
+	document.getElementById('total-num').innerHTML = '$'+total;
+	document.getElementById('hidden-total').innerHTML = '$'+total;
+
+}
+
+</script>
+</body>
+</html>
